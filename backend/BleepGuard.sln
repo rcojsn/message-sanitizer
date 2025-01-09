@@ -4,6 +4,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26A851E2-538
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleepGuard.Api", "src\BleepGuard.Api\BleepGuard.Api.csproj", "{5B7E85C2-6F30-42AD-A728-1ACA37CE4864}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleepGuard.Application", "src\BleepGuard.Application\BleepGuard.Application.csproj", "{AA271032-9FFF-4EA9-958B-CA0A680956CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleepGuard.Infrastructure", "src\BleepGuard.Infrastructure\BleepGuard.Infrastructure.csproj", "{0C1AB61E-9B29-4B14-BCDF-047C2285DBD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleepGuard.Domain", "src\BleepGuard.Domain\BleepGuard.Domain.csproj", "{68ED597F-ADD5-4C29-9FB6-6530306D504B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,11 +17,26 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5B7E85C2-6F30-42AD-A728-1ACA37CE4864} = {26A851E2-5382-4BE9-8208-8E17D12A4A52}
+		{AA271032-9FFF-4EA9-958B-CA0A680956CB} = {26A851E2-5382-4BE9-8208-8E17D12A4A52}
+		{0C1AB61E-9B29-4B14-BCDF-047C2285DBD5} = {26A851E2-5382-4BE9-8208-8E17D12A4A52}
+		{68ED597F-ADD5-4C29-9FB6-6530306D504B} = {26A851E2-5382-4BE9-8208-8E17D12A4A52}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5B7E85C2-6F30-42AD-A728-1ACA37CE4864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B7E85C2-6F30-42AD-A728-1ACA37CE4864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B7E85C2-6F30-42AD-A728-1ACA37CE4864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B7E85C2-6F30-42AD-A728-1ACA37CE4864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA271032-9FFF-4EA9-958B-CA0A680956CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA271032-9FFF-4EA9-958B-CA0A680956CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA271032-9FFF-4EA9-958B-CA0A680956CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA271032-9FFF-4EA9-958B-CA0A680956CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C1AB61E-9B29-4B14-BCDF-047C2285DBD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C1AB61E-9B29-4B14-BCDF-047C2285DBD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C1AB61E-9B29-4B14-BCDF-047C2285DBD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C1AB61E-9B29-4B14-BCDF-047C2285DBD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68ED597F-ADD5-4C29-9FB6-6530306D504B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68ED597F-ADD5-4C29-9FB6-6530306D504B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68ED597F-ADD5-4C29-9FB6-6530306D504B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68ED597F-ADD5-4C29-9FB6-6530306D504B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
