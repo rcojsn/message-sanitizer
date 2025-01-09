@@ -1,14 +1,16 @@
-﻿FROM mcr.microsoft.com/dotnet/runtime:9.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["BleepGuard.Api/BleepGuard.Api.csproj", "BleepGuard.Api/"]
-RUN dotnet restore "BleepGuard.Api/BleepGuard.Api.csproj"
+COPY ["src/BleepGuard.Api/BleepGuard.Api.csproj", "src/BleepGuard.Api/"]
+RUN dotnet restore "src/BleepGuard.Api/BleepGuard.Api.csproj"
 COPY . .
-WORKDIR "/src/BleepGuard.Api"
+WORKDIR "/src/src/BleepGuard.Api"
 RUN dotnet build "BleepGuard.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
