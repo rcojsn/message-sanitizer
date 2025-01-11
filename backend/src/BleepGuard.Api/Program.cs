@@ -1,4 +1,3 @@
-using System.Reflection;
 using BleepGuard.Application;
 using BleepGuard.Infrastructure;
 using MassTransit;
