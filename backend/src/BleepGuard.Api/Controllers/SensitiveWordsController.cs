@@ -1,4 +1,6 @@
 ﻿using BleepGuard.Application.SensitiveWords.Commands.CreateSensitiveWord;
+using BleepGuard.Application.SensitiveWords.Commands.DeleteSensitiveWord;
+using BleepGuard.Application.SensitiveWords.Commands.UpdateSensitiveWord;
 using BleepGuard.Application.SensitiveWords.Queries.GetSensitiveWord;
 using BleepGuard.Application.SensitiveWords.Queries.GetSensitiveWords;
 using BleepGuard.Contracts.SensitiveWords;
@@ -84,13 +86,47 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
         return Ok(sensitiveWords);
     }
 
+    /// <summary>
+    /// Update an existing sensitive word
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateSensitiveWord()
+    public async Task<IActionResult> UpdateSensitiveWord([FromRoute] Guid id, [FromBody] UpdateSensitiveWordRequest request, CancellationToken cancellationToken)
     {
+        var command = new UpdateSensitiveWordCommand(id, request.Word);
         
+        var updateSensitiveWordResult = await mediator.Send(command, cancellationToken);
+
+        return updateSensitiveWordResult.Match<IActionResult>(
+            _ => NoContent(),
+            _ => Problem()
+        );
+    }
+
+    /// <summary>
+    /// Delete an existing sensitive word by its unique identifier
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteSensitiveWord([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        var command = new DeleteSensitiveWordCommand(id);
+        
+        var deleteSensitiveWordResult = await mediator.Send(command, cancellationToken);
+
+        return deleteSensitiveWordResult.Match<IActionResult>(
+            _ => NoContent(),
+            _ => Problem()
+        );
     }
 }
