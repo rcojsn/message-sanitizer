@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace BleepGuard.Infrastructure;
+namespace BleepGuard.Infrastructure.Common;
 
 public class MsSqlDbConnectionFactory(string connectionString) : IDbConnectionFactory
 {

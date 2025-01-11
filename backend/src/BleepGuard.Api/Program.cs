@@ -3,6 +3,7 @@ using BleepGuard.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 
 // Add services to the container.
