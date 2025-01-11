@@ -18,5 +18,12 @@ services:
       dockerfile: Dockerfile
     container_name: database-seed
 
+  rabbitmq:
+    image: 'masstransit/rabbitmq:latest'
+    container_name: rabbitmq
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+
 volumes:
   mssql_data:

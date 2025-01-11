@@ -7,11 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\BleepGuard.Contracts\BleepGuard.Contracts.csproj" />
       <ProjectReference Include="..\BleepGuard.Application\BleepGuard.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.1.35" />
+      <PackageReference Include="MassTransit.Abstractions" Version="8.3.4" />
       <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     </ItemGroup>
 
