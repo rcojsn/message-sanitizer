@@ -10,7 +10,15 @@ public class CreateSensitiveWordCommandHandler(ISensitiveWordsRepository sensiti
 {
     public async Task<ErrorOr<SensitiveWord>> Handle(CreateSensitiveWordCommand request, CancellationToken cancellationToken)
     {
-        var sensitiveWord = new SensitiveWord(Guid.NewGuid(), request.SensitiveWord);
+        var exists = await sensitiveWordsRepository.Exists(request.SensitiveWord);
+        
+        if (exists) return Error.Conflict("Sensitive word already exists");
+        
+        var sensitiveWord = new SensitiveWord
+        {
+            Id = Guid.NewGuid(),
+            Word = request.SensitiveWord
+        };
         
         await sensitiveWordsRepository.AddSensitiveWordAsync(sensitiveWord);
 

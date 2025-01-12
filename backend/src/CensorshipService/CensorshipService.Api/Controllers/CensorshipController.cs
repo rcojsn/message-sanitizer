@@ -1,15 +1,26 @@
-﻿using CensorshipService.Contracts.SanitizedMessages;
+﻿using CensorshipService.Application.SanitizedMessages.Commands.CreateSanitizedMessage;
+using CensorshipService.Contracts.SanitizedMessages;
+using CensorshipService.Domain.SanitizedMessages;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CensorshipService.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CensorshipController : ControllerBase
+public class CensorshipController(IMediator mediator) : ControllerBase
 {
     [HttpPost("sanitize")]
-    public async Task<IActionResult> Sanitize([FromBody] CreateSanitizedMessageRequest request)
+    [ProducesResponseType(typeof(SanitizedMessage), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateSanitizedMessage([FromBody] CreateSanitizedMessageRequest request, CancellationToken cancellationToken)
     {
-        return Ok("sanitized");
+        var command = new CreateSanitizedMessageCommand(request.Message);
+        var createSanitizedMessageResult = await mediator.Send(command, cancellationToken);
+
+        return createSanitizedMessageResult.MatchFirst(
+            sanitizedMessage => Created("", new SanitizedMessageResponse(sanitizedMessage.Id, request.Message)),
+            _ => Problem()
+        );
     }
 }

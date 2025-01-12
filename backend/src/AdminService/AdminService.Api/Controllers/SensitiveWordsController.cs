@@ -5,6 +5,7 @@ using AdminService.Application.SensitiveWords.Queries.GetSensitiveWord;
 using AdminService.Application.SensitiveWords.Queries.GetSensitiveWords;
 using AdminService.Contracts.SensitiveWords;
 using AdminService.Domain.SensitiveWords;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 
@@ -28,7 +29,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     /// or validation errors (HTTP 400 Bad Request) if the provided word is invalid
     /// </returns>
     [HttpPost]
-    [ProducesResponseType(typeof(IList<SensitiveWord>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(SensitiveWord), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateSensitiveWord([FromBody] CreateSensitiveWordRequest request, CancellationToken cancellationToken)
     {
@@ -36,7 +37,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
         var createSensitiveWordResult = await mediator.Send(command, cancellationToken);
 
         return createSensitiveWordResult.MatchFirst(
-            sensitiveWord => CreatedAtRoute(
+            sensitiveWord => CreatedAtAction(
                 nameof(GetSensitiveWordById),
                 new { id = sensitiveWord.Id },
                 sensitiveWord),
@@ -56,6 +57,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(SensitiveWord), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetSensitiveWordById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var query = new GetSensitiveWordQuery(id);
@@ -64,8 +66,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
 
         return getSensitiveWordResult.MatchFirst(
             sensitiveWord => Ok(new SensitiveWordResponse(id, sensitiveWord.Word)),
-            _ => Problem()
-        );
+            error => error.Type == ErrorType.NotFound ? NotFound(error.Description) : Problem());
     }
     
     /// <summary>

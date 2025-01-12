@@ -1,3 +1,3 @@
 ﻿namespace CensorshipService.Domain.SanitizedMessages;
 
-public class SanitizedMessage(Guid Id, string Message);
+public record SanitizedMessage(Guid Id, string Message);

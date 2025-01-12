@@ -19,7 +19,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CensorshipService.Application\CensorshipService.Application.csproj" />
       <ProjectReference Include="..\CensorshipService.Contracts\CensorshipService.Contracts.csproj" />
+      <ProjectReference Include="..\CensorshipService.Infrastructure\CensorshipService.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

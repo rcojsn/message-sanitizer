@@ -12,6 +12,12 @@ public class UpdateSensitiveWordCommandHandler(ISensitiveWordsRepository sensiti
 
         if (sensitiveWord == null) return Error.NotFound(description: "Sensitive word not found");
 
+        var exists = await sensitiveWordsRepository.Exists(request.Word);
+        
+        if (exists) return Error.Conflict("Sensitive word already exists");
+        
+        sensitiveWord.Word = request.Word;
+
         await sensitiveWordsRepository.UpdateSensitiveWordAsync(sensitiveWord);
 
         return Result.Updated;

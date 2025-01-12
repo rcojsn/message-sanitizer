@@ -1,3 +1,7 @@
 ﻿namespace AdminService.Domain.SensitiveWords;
 
-public record SensitiveWord(Guid Id, string Word);
+public record SensitiveWord
+{
+    public Guid Id { get; set; }
+    public required string Word { get; set; }
+};

@@ -13,7 +13,7 @@ public class SensitiveWordsRepository(IDbConnectionFactory connectionFactory) : 
         
         await dbConnection.ExecuteAsync(
         """
-                INSERT INTO SensitiveWords
+                INSERT INTO SensitiveWords (Id, Word)
                 VALUES (@Id, @Word)
             """, sensitiveWord);
     }
@@ -23,7 +23,7 @@ public class SensitiveWordsRepository(IDbConnectionFactory connectionFactory) : 
         using var dbConnection = await connectionFactory.CreateConnectionAsync();
         var sensitiveWord = await dbConnection
             .QuerySingleOrDefaultAsync<SensitiveWord>(
-            "SELECT * FROM SensitiveWords WHERE Id = @Id limit 1", new { Id = sensitiveWordId });
+            "SELECT  TOP 1 * FROM SensitiveWords WHERE Id = @Id", new { Id = sensitiveWordId });
         return sensitiveWord;
     }
 
@@ -35,14 +35,14 @@ public class SensitiveWordsRepository(IDbConnectionFactory connectionFactory) : 
         return results.ToList();
     }
 
-    public async Task<bool> UpdateSensitiveWordAsync(SensitiveWord sensitiveWord)
+    public async Task UpdateSensitiveWordAsync(SensitiveWord sensitiveWord)
     {
         using var dbConnection = await connectionFactory.CreateConnectionAsync();
-        return await dbConnection.ExecuteAsync("""
+        await dbConnection.ExecuteAsync("""
             UPDATE SensitiveWords
             SET Word = @Word
             WHERE Id = @Id
-        """, sensitiveWord) > 0;
+        """, sensitiveWord);
     }
     
     public async Task DeleteSensitiveWordAsync(SensitiveWord sensitiveWord)
@@ -53,5 +53,16 @@ public class SensitiveWordsRepository(IDbConnectionFactory connectionFactory) : 
             WHERE Id = @Id
         """
             , sensitiveWord);
+    }
+
+    public async Task<bool> Exists(string word)
+    {
+        using var dbConnection = await connectionFactory.CreateConnectionAsync();
+        var sensitiveWord = await dbConnection
+            .QuerySingleOrDefaultAsync<SensitiveWord>(
+                "SELECT  TOP 1 * FROM SensitiveWords WHERE LOWER(Word) = LOWER(@Word)", 
+                new { Word = word }
+            );
+        return sensitiveWord is not null;
     }
 }
