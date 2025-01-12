@@ -2,7 +2,7 @@
 using ErrorOr;
 using MediatR;
 
-namespace AdminService.Application.SensitiveWords.Commands.DeleteSensitiveWord;
+namespace AdminService.Application.Features.SensitiveWords.Commands.DeleteSensitiveWord;
 
 public class DeleteSensitiveWordCommandHandler(
     ISensitiveWordsRepository sensitiveWordsRepository,

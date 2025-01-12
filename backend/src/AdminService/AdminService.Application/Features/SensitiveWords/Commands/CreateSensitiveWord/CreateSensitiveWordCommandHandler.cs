@@ -1,31 +1,29 @@
 ﻿using AdminService.Application.Common.Interfaces;
+using AdminService.Application.Mappings;
 using AdminService.Domain.SensitiveWords;
+using BleepGuard.Contracts.SensitiveWords;
 using ErrorOr;
 using MediatR;
 
-namespace AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
+namespace AdminService.Application.Features.SensitiveWords.Commands.CreateSensitiveWord;
 
 public class CreateSensitiveWordCommandHandler(
     ISensitiveWordsRepository sensitiveWordsRepository,
     ICacheRepository cacheRepository)
-    : IRequestHandler<CreateSensitiveWordCommand, ErrorOr<SensitiveWord>>
+    : IRequestHandler<CreateSensitiveWordCommand, ErrorOr<SensitiveWordResponse>>
 {
-    public async Task<ErrorOr<SensitiveWord>> Handle(CreateSensitiveWordCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<SensitiveWordResponse>> Handle(CreateSensitiveWordCommand request, CancellationToken cancellationToken)
     {
         var exists = await sensitiveWordsRepository.Exists(request.SensitiveWord);
         
         if (exists) return Error.Conflict("Sensitive word already exists");
         
-        var sensitiveWord = new SensitiveWord
-        {
-            Id = Guid.NewGuid(),
-            Word = request.SensitiveWord
-        };
+        var sensitiveWord = new SensitiveWord(Guid.NewGuid(), request.SensitiveWord);
         
         await sensitiveWordsRepository.AddSensitiveWordAsync(sensitiveWord);
         
         await cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
 
-        return sensitiveWord;
+        return sensitiveWord.MapToSensitiveWordResponse();
     }
 }

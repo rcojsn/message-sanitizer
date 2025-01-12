@@ -15,7 +15,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\BleepGuard.Contracts\BleepGuard.Contracts.csproj" />
+      <ProjectReference Include="..\AdminService.Contracts\AdminService.Contracts.csproj" />
       <ProjectReference Include="..\AdminService.Domain\AdminService.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\" />
     </ItemGroup>
 
 </Project>

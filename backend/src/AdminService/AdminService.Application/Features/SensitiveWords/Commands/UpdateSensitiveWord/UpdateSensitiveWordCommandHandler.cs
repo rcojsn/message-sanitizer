@@ -1,8 +1,9 @@
 ﻿using AdminService.Application.Common.Interfaces;
+using AdminService.Application.Mappings;
 using ErrorOr;
 using MediatR;
 
-namespace AdminService.Application.SensitiveWords.Commands.UpdateSensitiveWord;
+namespace AdminService.Application.Features.SensitiveWords.Commands.UpdateSensitiveWord;
 
 public class UpdateSensitiveWordCommandHandler(
     ISensitiveWordsRepository sensitiveWordsRepository,
@@ -18,7 +19,7 @@ public class UpdateSensitiveWordCommandHandler(
         
         if (exists) return Error.Conflict("Sensitive word already exists");
         
-        sensitiveWord.Word = request.Word;
+        sensitiveWord.MapFrom(request);
 
         await sensitiveWordsRepository.UpdateSensitiveWordAsync(sensitiveWord);
 

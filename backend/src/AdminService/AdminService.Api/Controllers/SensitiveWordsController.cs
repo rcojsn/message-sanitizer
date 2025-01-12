@@ -1,9 +1,9 @@
 ﻿using System.Net.Mime;
-using AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
-using AdminService.Application.SensitiveWords.Commands.DeleteSensitiveWord;
-using AdminService.Application.SensitiveWords.Commands.UpdateSensitiveWord;
-using AdminService.Application.SensitiveWords.Queries.GetSensitiveWord;
-using AdminService.Application.SensitiveWords.Queries.GetSensitiveWords;
+using AdminService.Application.Features.SensitiveWords.Commands.CreateSensitiveWord;
+using AdminService.Application.Features.SensitiveWords.Commands.DeleteSensitiveWord;
+using AdminService.Application.Features.SensitiveWords.Commands.UpdateSensitiveWord;
+using AdminService.Application.Features.SensitiveWords.Queries.GetSensitiveWord;
+using AdminService.Application.Features.SensitiveWords.Queries.GetSensitiveWords;
 using AdminService.Contracts.SensitiveWords;
 using AdminService.Domain.SensitiveWords;
 using BleepGuard.Contracts.SensitiveWords;
@@ -14,6 +14,7 @@ using MediatR;
 namespace AdminService.Api.Controllers;
 
 /// <summary>
+/// Handles managing the sensitive words 
 /// </summary>
 /// <param name="mediator"></param>
 [Produces(MediaTypeNames.Application.Json)]
@@ -25,14 +26,11 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Creates a new sensitive word
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns>
-    /// An <see cref="IActionResult"/> containing the created sensitive word (HTTP 201 Created),
-    /// or validation errors (HTTP 400 Bad Request) if the provided word is invalid
-    /// </returns>
+    /// <param name="request">The sensitive word to add</param>
+    /// <param name="cancellationToken" />
+    /// <returns>The created sensitive word</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(SensitiveWord), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(SensitiveWordResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateSensitiveWord([FromBody] CreateSensitiveWordRequest request, CancellationToken cancellationToken)
     {
@@ -68,7 +66,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
         var getSensitiveWordResult = await mediator.Send(query, cancellationToken);
 
         return getSensitiveWordResult.MatchFirst(
-            sensitiveWord => Ok(new SensitiveWordResponse(id, sensitiveWord.Word)),
+            sensitiveWord => Ok(new BleepGuard.Contracts.SensitiveWords.SensitiveWordResponse(id, sensitiveWord.Word)),
             error => error.Type == ErrorType.NotFound ? NotFound(error.Description) : Problem());
     }
     

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
+namespace AdminService.Application.Features.SensitiveWords.Commands.CreateSensitiveWord;
 
 public class CreateSensitiveWordCommandValidator : AbstractValidator<CreateSensitiveWordCommand>
 {
