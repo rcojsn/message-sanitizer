@@ -11,14 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-if (string.IsNullOrWhiteSpace(connectionString)) throw new ApplicationException("No connection string found.");
-
 builder
     .Services
     .AddApplication()
-    .AddInfrastructure(connectionString);
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26A851E2-5382-4BE9-8208-8E17D12A4A52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminService", "AdminService", "{A1EE68F4-D921-43E2-8C4F-C0F3C779F8A7}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Api", "src\AdminService\AdminService.Api\AdminService.Api.csproj", "{0DF16038-CFB4-44CB-ABE2-6E0C3CFE3560}"
 EndProject

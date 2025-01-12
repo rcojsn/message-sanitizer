@@ -15,12 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\BleepGuard.Contracts\BleepGuard.Contracts.csproj" />
       <ProjectReference Include="..\AdminService.Application\AdminService.Application.csproj" />
       <ProjectReference Include="..\AdminService.Contracts\AdminService.Contracts.csproj" />
