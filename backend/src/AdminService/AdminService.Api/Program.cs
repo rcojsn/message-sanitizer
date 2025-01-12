@@ -1,19 +1,13 @@
 using AdminService.Application;
+using AdminService.Application.Common.Interfaces;
 using AdminService.Infrastructure;
-using MassTransit;
+using AdminService.Infrastructure.Redis;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
-
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.ConfigureEndpoints(context);
-    });
-});
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,7 +21,7 @@ if (string.IsNullOrWhiteSpace(connectionString)) throw new ApplicationException(
 builder
     .Services
     .AddApplication()
-    .AddInfrastructure(connectionString);
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

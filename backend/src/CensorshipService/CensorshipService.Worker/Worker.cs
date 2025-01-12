@@ -12,7 +12,7 @@ public class Worker(
     {
         var sensitiveWordsResponse = await adminServiceApiClient.GetSensitiveWords();
 
-        await cacheRepository.AddSensitiveWords(sensitiveWordsResponse);
+        await cacheRepository.AddSensitiveWordsAsync(sensitiveWordsResponse);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

@@ -5,7 +5,9 @@ using MediatR;
 
 namespace AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
 
-public class CreateSensitiveWordCommandHandler(ISensitiveWordsRepository sensitiveWordsRepository) 
+public class CreateSensitiveWordCommandHandler(
+    ISensitiveWordsRepository sensitiveWordsRepository,
+    ICacheRepository cacheRepository)
     : IRequestHandler<CreateSensitiveWordCommand, ErrorOr<SensitiveWord>>
 {
     public async Task<ErrorOr<SensitiveWord>> Handle(CreateSensitiveWordCommand request, CancellationToken cancellationToken)
@@ -21,6 +23,8 @@ public class CreateSensitiveWordCommandHandler(ISensitiveWordsRepository sensiti
         };
         
         await sensitiveWordsRepository.AddSensitiveWordAsync(sensitiveWord);
+        
+        await cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
 
         return sensitiveWord;
     }

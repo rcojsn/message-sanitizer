@@ -4,7 +4,9 @@ using MediatR;
 
 namespace AdminService.Application.SensitiveWords.Commands.DeleteSensitiveWord;
 
-public class DeleteSensitiveWordCommandHandler(ISensitiveWordsRepository sensitiveWordsRepository) : IRequestHandler<DeleteSensitiveWordCommand, ErrorOr<Deleted>>
+public class DeleteSensitiveWordCommandHandler(
+    ISensitiveWordsRepository sensitiveWordsRepository,
+    ICacheRepository cacheRepository) : IRequestHandler<DeleteSensitiveWordCommand, ErrorOr<Deleted>>
 {
     public async Task<ErrorOr<Deleted>> Handle(DeleteSensitiveWordCommand request, CancellationToken cancellationToken)
     {
@@ -13,6 +15,8 @@ public class DeleteSensitiveWordCommandHandler(ISensitiveWordsRepository sensiti
         if (sensitiveWord == null) return Error.NotFound(description: "Sensitive word not found");
         
         await sensitiveWordsRepository.DeleteSensitiveWordAsync(sensitiveWord);
+        
+        await cacheRepository.DeleteSensitiveWordByIdAsync(request.Id);
         
         return Result.Deleted;
     }

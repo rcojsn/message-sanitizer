@@ -6,13 +6,13 @@ namespace CensorshipService.Infrastructure.Redis;
 
 public class CacheRepository(IConnectionMultiplexer redis) : ICacheRepository
 {
-    public async Task AddSensitiveWords(IList<SensitiveWordResponse> response)
+    public async Task AddSensitiveWordsAsync(IList<SensitiveWordResponse> response)
     {
-        var sensitiveWords = response.Select(s => s.Word);
         var db = redis.GetDatabase();
-        foreach (var sensitiveWord in sensitiveWords)
+        foreach (var sensitiveWord in response)
         {
-            await db.SetAddAsync("sensitiveWords", sensitiveWord);
+            var (id, word) = sensitiveWord;
+            await db.HashSetAsync("sensitiveWords", id.ToString(), word);
         }
     }
 }

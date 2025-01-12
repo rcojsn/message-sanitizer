@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\AdminService\AdminService.Domain\AdminService.Domain.csproj" />
       <ProjectReference Include="..\..\BleepGuard.Contracts\BleepGuard.Contracts.csproj" />
       <ProjectReference Include="..\CensorshipService.Domain\CensorshipService.Domain.csproj" />
     </ItemGroup>
