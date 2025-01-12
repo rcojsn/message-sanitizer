@@ -15,23 +15,24 @@ public class CreateSanitizedMessageCommandHandler(
 {
     public async Task<ErrorOr<SanitizedMessage>> Handle(CreateSanitizedMessageCommand request, CancellationToken cancellationToken)
     {
-        IList<SensitiveWordResponse> sensitiveWordResponses = [];
-        
-        var cachedSensitiveWords = await cacheRepository
-            .GetCacheValueAsync<IList<SensitiveWordResponse>>("SensitiveWords");
-
-        if (cachedSensitiveWords is not null)
-        {
-            sensitiveWordResponses = cachedSensitiveWords;
-        }
-        else
-        {
-            var response = await adminServiceApi
-                .GetSensitiveWords();
-            
-            await cacheRepository.SetCacheValueAsync("SensitiveWords", response, TimeSpan.FromMinutes(10));
-        }
-        
+        // IList<SensitiveWordResponse> sensitiveWordResponses = [];
+        //
+        // var cachedSensitiveWords = await cacheRepository
+        //     .GetCacheValueAsync<IList<SensitiveWordResponse>?>("SensitiveWords");
+        //
+        // if (cachedSensitiveWords is not null)
+        // {
+        //     sensitiveWordResponses = cachedSensitiveWords;
+        // }
+        // else
+        // {
+        //     var response = await adminServiceApi
+        //         .GetSensitiveWords();
+        //     sensitiveWordResponses = response;
+        // }
+        //
+        // await cacheRepository.SetCacheValueAsync("SensitiveWords", response, TimeSpan.FromMinutes(10));
+        //
         var sanitizedMessage = new SanitizedMessage(Guid.NewGuid(), request.Message);
         
         await sanitizedMessagesRepository.AddSanitizedMessageAsync(sanitizedMessage);

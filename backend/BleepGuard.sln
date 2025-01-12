@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleepGuard.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleepGuard.Contracts", "src\BleepGuard.Contracts\BleepGuard.Contracts.csproj", "{6FB6ADC9-ADE9-48D0-87F1-4F2D80E4B465}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CensorshipService.Worker", "src\CensorshipService\CensorshipService.Worker\CensorshipService.Worker.csproj", "{0BE7D103-0D32-4EA0-B0B9-5184A22931FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,7 @@ Global
 		{8E8A7E98-E9DB-41F1-8806-16B71F031D80} = {FAE1B5E0-A20D-4277-824C-DDF65BBDADF4}
 		{58177606-78A3-4771-A238-A2F1A2C74AC2} = {26A851E2-5382-4BE9-8208-8E17D12A4A52}
 		{6FB6ADC9-ADE9-48D0-87F1-4F2D80E4B465} = {26A851E2-5382-4BE9-8208-8E17D12A4A52}
+		{0BE7D103-0D32-4EA0-B0B9-5184A22931FD} = {FAE1B5E0-A20D-4277-824C-DDF65BBDADF4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0DF16038-CFB4-44CB-ABE2-6E0C3CFE3560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -104,5 +107,9 @@ Global
 		{6FB6ADC9-ADE9-48D0-87F1-4F2D80E4B465}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FB6ADC9-ADE9-48D0-87F1-4F2D80E4B465}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FB6ADC9-ADE9-48D0-87F1-4F2D80E4B465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE7D103-0D32-4EA0-B0B9-5184A22931FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE7D103-0D32-4EA0-B0B9-5184A22931FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE7D103-0D32-4EA0-B0B9-5184A22931FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE7D103-0D32-4EA0-B0B9-5184A22931FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -19,9 +19,6 @@ public static class DependencyInjection
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         
         services.AddValidatorsFromAssemblyContaining<CreateSanitizedMessageCommandValidator>();
-
-        services.AddRefitClient<IAdminServiceApiClient>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5010"));
         
         return services;
     }

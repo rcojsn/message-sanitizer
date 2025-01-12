@@ -17,15 +17,21 @@ public static class DependencyInjection
         if (string.IsNullOrWhiteSpace(connectionString)) throw new ApplicationException("No database connection string found.");
         
         services.AddSingleton<IDbConnectionFactory>(_ => new MsSqlDbConnectionFactory(connectionString));
-        
+
+        services.AddScoped<ISanitizedMessagesRepository, SanitizedMessagesRepository>();
+
+        services.RegisterRedis(configuration);
+    }
+
+    public static void RegisterRedis(this IServiceCollection services, ConfigurationManager configuration)
+    {
         var redisConnectionString = configuration["Redis:ConnectionString"]!;
         
         if (string.IsNullOrWhiteSpace(redisConnectionString)) throw new ApplicationException("No redis connection string found.");
         
         var redis = ConnectionMultiplexer.Connect(redisConnectionString);
         services.AddSingleton<IConnectionMultiplexer>(redis);
-
-        services.AddScoped<ISanitizedMessagesRepository, SanitizedMessagesRepository>();
-        services.AddScoped<ICacheRepository, CacheRepository>();
+        
+        services.AddSingleton<ICacheRepository, CacheRepository>();
     }
 }
