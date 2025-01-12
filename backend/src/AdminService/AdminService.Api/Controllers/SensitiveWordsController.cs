@@ -1,4 +1,5 @@
-﻿using AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
+﻿using System.Net.Mime;
+using AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
 using AdminService.Application.SensitiveWords.Commands.DeleteSensitiveWord;
 using AdminService.Application.SensitiveWords.Commands.UpdateSensitiveWord;
 using AdminService.Application.SensitiveWords.Queries.GetSensitiveWord;
@@ -15,6 +16,8 @@ namespace AdminService.Api.Controllers;
 /// <summary>
 /// </summary>
 /// <param name="mediator"></param>
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
 [ApiController]
 [Route("[controller]")]
 public class SensitiveWordsController(IMediator mediator) : ControllerBase
