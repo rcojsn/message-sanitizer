@@ -1,7 +1,7 @@
-CREATE DATABASE BleepGuard
+CREATE DATABASE AdminService
 GO
        
-USE BleepGuard
+USE AdminService
 GO
        
 CREATE TABLE SensitiveWords
@@ -10,12 +10,6 @@ CREATE TABLE SensitiveWords
     Word    NVARCHAR(100)       NOT NULL
 )
 GO
-
-Create Table SanitizedMessages
-(
-    Id      UNIQUEIDENTIFIER    PRIMARY KEY DEFAULT NEWID(),
-    Message NVARCHAR(255)       NOT NULL
-)
 
 INSERT INTO SensitiveWords (Word)
 VALUES

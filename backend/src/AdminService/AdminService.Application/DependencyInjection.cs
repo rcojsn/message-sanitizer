@@ -1,5 +1,5 @@
-﻿using AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
-using BleepGuard.Application.Common.Behaviors;
+﻿using AdminService.Application.Common.Behaviors;
+using AdminService.Application.SensitiveWords.Commands.CreateSensitiveWord;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
