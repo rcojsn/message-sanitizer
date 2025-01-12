@@ -1,5 +1,6 @@
 ﻿using BleepGuard.Application.Common.Interfaces;
 using BleepGuard.Infrastructure.Common;
+using BleepGuard.Infrastructure.SanitizedMessages.Persistence;
 using BleepGuard.Infrastructure.SensitiveWords.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,5 +13,6 @@ public static class DependencyInjection
         services.AddSingleton<IDbConnectionFactory>(_ => new MsSqlDbConnectionFactory(connectionString));
 
         services.AddScoped<ISensitiveWordsRepository, SensitiveWordsRepository>();
+        services.AddScoped<ISanitizedMessagesRepository, SanitizedMessagesRepository>();
     }
 }

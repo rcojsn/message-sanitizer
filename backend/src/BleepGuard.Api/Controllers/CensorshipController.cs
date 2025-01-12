@@ -12,7 +12,7 @@ public class CensorshipController(IPublishEndpoint publishEndpoint) : Controller
     [HttpPost("sanitize")]
     public async Task<IActionResult> Sanitize([FromBody] CreateSanitizedMessageRequest request)
     {
-        var notifySanitizedMessageCreated = publishEndpoint.Publish(new SanitizedMessageCreated(request.Message));
+        var notifySanitizedMessageCreated = publishEndpoint.Publish(new CreateSanitizedMessage(request.Message));
         
         return Ok("sanitized");
     }

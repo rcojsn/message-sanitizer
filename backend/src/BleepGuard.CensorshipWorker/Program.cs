@@ -5,7 +5,7 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<SanitizedMessageCreatedConsumer>();
+    x.AddConsumer<CreateSanitizedMessageConsumer>();
         
     x.UsingRabbitMq((context, cfg) =>
     {

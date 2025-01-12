@@ -11,6 +11,12 @@ CREATE TABLE SensitiveWords
 )
 GO
 
+Create Table SanitizedMessages
+(
+    Id      UNIQUEIDENTIFIER    PRIMARY KEY DEFAULT NEWID(),
+    Message NVARCHAR(255)       NOT NULL
+)
+
 INSERT INTO SensitiveWords (Word)
 VALUES
     ('ACTION'),
