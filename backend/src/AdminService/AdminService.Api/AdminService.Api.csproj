@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\BleepGuard.Contracts\BleepGuard.Contracts.csproj" />
       <ProjectReference Include="..\AdminService.Application\AdminService.Application.csproj" />
       <ProjectReference Include="..\AdminService.Contracts\AdminService.Contracts.csproj" />
       <ProjectReference Include="..\AdminService.Domain\AdminService.Domain.csproj" />

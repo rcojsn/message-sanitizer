@@ -11,10 +11,15 @@
       <PackageReference Include="FluentValidation" Version="11.11.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
       <PackageReference Include="MediatR" Version="12.4.1" />
+      <PackageReference Include="Refit" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CensorshipService.Domain\CensorshipService.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Interfaces\" />
     </ItemGroup>
 
 </Project>

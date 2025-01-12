@@ -5,6 +5,7 @@ using AdminService.Application.SensitiveWords.Queries.GetSensitiveWord;
 using AdminService.Application.SensitiveWords.Queries.GetSensitiveWords;
 using AdminService.Contracts.SensitiveWords;
 using AdminService.Domain.SensitiveWords;
+using BleepGuard.Contracts.SensitiveWords;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
