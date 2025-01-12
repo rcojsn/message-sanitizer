@@ -13,7 +13,6 @@ using MediatR;
 namespace AdminService.Api.Controllers;
 
 /// <summary>
-/// Handles requests related to sensitive words, such as retrieving, adding, updating, or deleting sensitive words.
 /// </summary>
 /// <param name="mediator"></param>
 [ApiController]
@@ -47,7 +46,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Retrieves a sensitive word by its unique identifier
+    /// Retrieves a sensitive word by its id
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
@@ -112,7 +111,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Delete an existing sensitive word by its unique identifier
+    /// Delete an existing sensitive word by its id
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>

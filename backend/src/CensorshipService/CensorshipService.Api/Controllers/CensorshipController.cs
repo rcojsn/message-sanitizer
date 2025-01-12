@@ -10,6 +10,12 @@ namespace CensorshipService.Api.Controllers;
 [Route("[controller]")]
 public class CensorshipController(IMediator mediator) : ControllerBase
 {
+    /// <summary>
+    /// Sanitize the provided message
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("sanitize")]
     [ProducesResponseType(typeof(SanitizedMessage), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -19,7 +25,9 @@ public class CensorshipController(IMediator mediator) : ControllerBase
         var createSanitizedMessageResult = await mediator.Send(command, cancellationToken);
 
         return createSanitizedMessageResult.MatchFirst(
-            sanitizedMessage => Created("", new SanitizedMessageResponse(sanitizedMessage.Id, request.Message)),
+            sanitizedMessage => Created("", 
+                new SanitizedMessageResponse(sanitizedMessage.Id, sanitizedMessage.Message)
+            ),
             _ => Problem()
         );
     }
