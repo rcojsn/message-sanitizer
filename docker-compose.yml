@@ -1,7 +1,7 @@
 services:
-  database:
+  admin-database:
     image: mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04
-    container_name: database
+    container_name: admin-database
     environment:
       ACCEPT_EULA: "true"
       MSSQL_SA_PASSWORD: "StrongP@ssw0rd123!"
@@ -10,13 +10,13 @@ services:
     volumes:
       - mssql_data:/var/opt/mssql
 
-  database-seed:
+  admin-database-seed:
+    container_name: admin-database-seed
     depends_on:
-      - database
+      - admin-database
     build:
-      context: ./backend/src/BleepGuard.Infrastructure/Database/
+      context: ./backend/src/AdminService/AdminService.Infrastructure/Database/
       dockerfile: Dockerfile
-    container_name: database-seed
 
   rabbitmq:
     image: 'masstransit/rabbitmq:latest'
