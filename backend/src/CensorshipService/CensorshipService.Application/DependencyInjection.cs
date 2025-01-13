@@ -1,10 +1,4 @@
-﻿using CensorshipService.Application.Common.Behaviors;
-using CensorshipService.Application.Common.Interfaces.External;
-using CensorshipService.Application.SanitizedMessages.Commands.CreateSanitizedMessage;
-using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Refit;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace CensorshipService.Application;
 
@@ -15,10 +9,6 @@ public static class DependencyInjection
         services.AddMediatR(options =>
             options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection))
         );
-        
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        
-        services.AddValidatorsFromAssemblyContaining<CreateSanitizedMessageCommandValidator>();
         
         return services;
     }

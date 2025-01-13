@@ -5,7 +5,6 @@ using AdminService.Application.Features.SensitiveWords.Commands.UpdateSensitiveW
 using AdminService.Application.Features.SensitiveWords.Queries.GetSensitiveWord;
 using AdminService.Application.Features.SensitiveWords.Queries.GetSensitiveWords;
 using AdminService.Contracts.SensitiveWords;
-using AdminService.Domain.SensitiveWords;
 using BleepGuard.Contracts.SensitiveWords;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +15,7 @@ namespace AdminService.Api.Controllers;
 /// <summary>
 /// Handles managing the sensitive words 
 /// </summary>
-/// <param name="mediator"></param>
+/// <param name="mediator">The mediator instance used for handling requests</param>
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 [ApiController]
@@ -26,18 +25,16 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Creates a new sensitive word
     /// </summary>
-    /// <param name="request">The sensitive word to add</param>
-    /// <param name="cancellationToken" />
-    /// <returns>The created sensitive word</returns>
-    [HttpPost]
+    /// <param name="request">The create sensitive word request object that expects a word</param>
+    /// <returns>The created sensitive word in the response, with a status code indicating success or failure.</returns>    [HttpPost]
     [ProducesResponseType(typeof(SensitiveWordResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateSensitiveWord([FromBody] CreateSensitiveWordRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateSensitiveWord([FromBody] CreateSensitiveWordRequest request)
     {
         var command = new CreateSensitiveWordCommand(request.Word);
-        var createSensitiveWordResult = await mediator.Send(command, cancellationToken);
+        var response = await mediator.Send(command);
 
-        return createSensitiveWordResult.MatchFirst(
+        return response.MatchFirst(
             sensitiveWord => CreatedAtAction(
                 nameof(GetSensitiveWordById),
                 new { id = sensitiveWord.Id },
@@ -49,82 +46,85 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Retrieves a sensitive word by its id
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="id">The unique identifier of the sensitive word to retrieve</param>
     /// <returns>
-    /// An <see cref="IActionResult"/> containing the sensitive word if found (HTTP 200 OK),
-    /// or a not found response (HTTP 404 Not Found) if the sensitive word does not exist
+    /// Returns the sensitive word if found (StatusCode 200 OK),
+    /// or a 404 Not Found status if the word is not found,
+    /// or a 500 Internal Server Error if an unexpected error occurs
     /// </returns>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(SensitiveWord), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SensitiveWordResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetSensitiveWordById([FromRoute] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetSensitiveWordById([FromRoute] Guid id)
     {
         var query = new GetSensitiveWordQuery(id);
         
-        var getSensitiveWordResult = await mediator.Send(query, cancellationToken);
+        var response = await mediator.Send(query);
 
-        return getSensitiveWordResult.MatchFirst(
-            sensitiveWord => Ok(new BleepGuard.Contracts.SensitiveWords.SensitiveWordResponse(id, sensitiveWord.Word)),
+        return response.MatchFirst(
+            sensitiveWord => Ok(sensitiveWord with { Id = id }),
             error => error.Type == ErrorType.NotFound ? NotFound(error.Description) : Problem());
     }
     
     /// <summary>
-    /// Retrieves all sensitive words
+    /// Retrieves all sensitive words.
     /// </summary>
-    /// <param name="cancellationToken"></param>
     /// <returns>
-    /// An <see cref="IActionResult"/> containing a list of all sensitive words (HTTP 200 OK).
+    /// Returns a list of all sensitive words (StatusCode 200 OK)
+    /// If no sensitive words are found, an empty list is returned
     /// </returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IList<SensitiveWord>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetSensitiveWords(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IList<SensitiveWordResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetSensitiveWords()
     {
         var query = new GetSensitiveWordsQuery();
-        
-        var sensitiveWords = await mediator.Send(query, cancellationToken);
-        
+        var sensitiveWords = await mediator.Send(query);
         return Ok(sensitiveWords);
     }
 
     /// <summary>
-    /// Update an existing sensitive word
+    /// Updates an existing sensitive word
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">The unique identifier of the sensitive word to update</param>
+    /// <param name="request">The updated sensitive word details</param>
+    /// <returns>
+    /// Returns a 204 No Content status if the update is successful
+    /// Returns a 400 Bad Request status if the input is invalid
+    /// Returns a 404 Not Found status if the sensitive word with the specified ID does not exist
+    /// </returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateSensitiveWord([FromRoute] Guid id, [FromBody] UpdateSensitiveWordRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateSensitiveWord([FromRoute] Guid id, [FromBody] UpdateSensitiveWordRequest request)
     {
         var command = new UpdateSensitiveWordCommand(id, request.Word);
         
-        var updateSensitiveWordResult = await mediator.Send(command, cancellationToken);
+        var response = await mediator.Send(command);
 
-        return updateSensitiveWordResult.Match<IActionResult>(
+        return response.Match<IActionResult>(
             _ => NoContent(),
             _ => Problem()
         );
     }
 
     /// <summary>
-    /// Delete an existing sensitive word by its id
+    /// Deletes an existing sensitive word by its ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">The unique identifier of the sensitive word to delete</param>
+    /// <returns>
+    /// Returns a 204 No Content status if the deletion is successful
+    /// Returns a 404 Not Found status if the sensitive word with the specified ID does not exist
+    /// </returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> DeleteSensitiveWord([FromRoute] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteSensitiveWord([FromRoute] Guid id)
     {
         var command = new DeleteSensitiveWordCommand(id);
         
-        var deleteSensitiveWordResult = await mediator.Send(command, cancellationToken);
+        var deleteSensitiveWordResult = await mediator.Send(command);
 
         return deleteSensitiveWordResult.Match<IActionResult>(
             _ => NoContent(),

@@ -17,25 +17,6 @@ services:
     build:
       context: ./backend/src/AdminService/AdminService.Infrastructure/Database/
       dockerfile: Dockerfile
-    
-  censorship-database:
-    image: mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04
-    container_name: censorship-database
-    environment:
-      ACCEPT_EULA: "true"
-      MSSQL_SA_PASSWORD: "StrongP@ssw0rd123!"
-    ports:
-      - "1434:1433"
-    volumes:
-      - censorship_mssql_data:/var/opt/mssql
-
-  censorship-database-seed:
-    container_name: censorship-database-seed
-    depends_on:
-      - censorship-database
-    build:
-      context: ./backend/src/CensorshipService/CensorshipService.Infrastructure/Database/
-      dockerfile: Dockerfile
 
   redis:
     image: redis:latest
@@ -59,5 +40,4 @@ services:
 
 volumes:
   admin_mssql_data:
-  censorship_mssql_data:
   redis-data:

@@ -15,12 +15,6 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Internal Admin Service", 
         Description = "Internal Admin Service API used to manage sensitive words",
-        Contact = new OpenApiContact
-        {
-            Name = "Ricardo Jansen",
-            Email = "rcojsn@gmail.com",
-            Url = new Uri("https://github.com/rcojsn")
-        },
         Version = "v1"
     });
     

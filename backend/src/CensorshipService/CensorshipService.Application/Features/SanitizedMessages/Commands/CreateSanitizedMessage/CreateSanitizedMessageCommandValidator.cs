@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CensorshipService.Application.SanitizedMessages.Commands.CreateSanitizedMessage;
+namespace CensorshipService.Application.Features.SanitizedMessages.Commands.CreateSanitizedMessage;
 
 public class CreateSanitizedMessageCommandValidator : AbstractValidator<CreateSanitizedMessageCommand>
 {
