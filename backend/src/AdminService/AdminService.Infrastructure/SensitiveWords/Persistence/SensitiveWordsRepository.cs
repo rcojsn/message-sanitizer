@@ -7,17 +7,16 @@ namespace AdminService.Infrastructure.SensitiveWords.Persistence;
 
 public class SensitiveWordsRepository(IDbConnectionFactory connectionFactory) : ISensitiveWordsRepository
 {
-    public async Task AddSensitiveWordAsync(SensitiveWord sensitiveWord)
+    public async Task<bool> AddSensitiveWordAsync(SensitiveWord sensitiveWord)
     {
         using var dbConnection = await connectionFactory.CreateConnectionAsync();
         
-        await dbConnection.ExecuteAsync(
+        return await dbConnection.ExecuteAsync(
         """
                 INSERT INTO SensitiveWords (Id, Word)
                 VALUES (@Id, @Word)
             """, 
-        sensitiveWord,
-        commandTimeout: 30);
+        sensitiveWord) > 0;
     }
 
     public async Task<SensitiveWord?> GetByIdAsync(Guid sensitiveWordId)

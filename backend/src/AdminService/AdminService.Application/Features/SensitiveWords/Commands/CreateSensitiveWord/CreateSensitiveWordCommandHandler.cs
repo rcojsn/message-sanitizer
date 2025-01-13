@@ -20,7 +20,9 @@ public class CreateSensitiveWordCommandHandler(
         
         var sensitiveWord = new SensitiveWord(Guid.NewGuid(), request.SensitiveWord);
         
-        await sensitiveWordsRepository.AddSensitiveWordAsync(sensitiveWord);
+        var added = await sensitiveWordsRepository.AddSensitiveWordAsync(sensitiveWord);
+
+        if (!added) return Error.Failure("Failed to add sensitive word");
         
         await cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
 

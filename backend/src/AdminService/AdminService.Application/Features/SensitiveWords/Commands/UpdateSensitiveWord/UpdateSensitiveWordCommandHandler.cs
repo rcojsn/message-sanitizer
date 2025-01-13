@@ -17,7 +17,7 @@ public class UpdateSensitiveWordCommandHandler(
 
         var exists = await sensitiveWordsRepository.Exists(request.Word);
         
-        if (exists) return Error.Conflict("Sensitive word already exists");
+        if (exists) return Error.Conflict(description: "Sensitive word already exists");
         
         sensitiveWord.MapFrom(request);
 

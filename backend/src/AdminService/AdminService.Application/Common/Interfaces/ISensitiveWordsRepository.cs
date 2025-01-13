@@ -4,7 +4,7 @@ namespace AdminService.Application.Common.Interfaces;
 
 public interface ISensitiveWordsRepository
 {
-    Task AddSensitiveWordAsync(SensitiveWord sensitiveWord);
+    Task<bool> AddSensitiveWordAsync(SensitiveWord sensitiveWord);
     Task<SensitiveWord?> GetByIdAsync(Guid sensitiveWordId);
     Task<IList<SensitiveWord>> GetAllAsync();
     Task UpdateSensitiveWordAsync(SensitiveWord sensitiveWord);

@@ -40,7 +40,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
                 nameof(GetSensitiveWordById),
                 new { id = sensitiveWord.Id },
                 sensitiveWord),
-            _ => Problem()
+            error => Problem(error.Description)
         );
     }
 
@@ -104,9 +104,20 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
         
         var response = await mediator.Send(command);
 
-        return response.Match<IActionResult>(
+        return response.MatchFirst<IActionResult>(
             _ => NoContent(),
-            _ => Problem()
+            error =>
+            {
+                switch (error.Type)
+                {
+                    case ErrorType.NotFound:
+                        return NotFound(error.Description);
+                    case ErrorType.Conflict:
+                        return Conflict(error.Description);
+                    default:
+                        return BadRequest(error.Description);
+                }
+            }
         );
     }
 
@@ -127,9 +138,9 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
         
         var deleteSensitiveWordResult = await mediator.Send(command);
 
-        return deleteSensitiveWordResult.Match<IActionResult>(
+        return deleteSensitiveWordResult.MatchFirst<IActionResult>(
             _ => NoContent(),
-            _ => Problem()
+            error => error.Type == ErrorType.NotFound ? NotFound(error.Description) : Problem(error.Description)
         );
     }
 }
