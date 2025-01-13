@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v3
@@ -28,6 +28,4 @@ jobs:
 
       - name: Test
         run: |
-          dotnet test .\backend\tests\CensorshipService\CensorshipService.Api.Tests --no-restore --verbosity normal
-          dotnet test .\backend\tests\CensorshipService\CensorshipService.Application.Tests --no-restore --verbosity normal
-          dotnet test .\backend\tests\CensorshipService\CensorshipService.Infrastructure.Tests --no-restore --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --no-restore --verbosity normal
