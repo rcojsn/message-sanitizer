@@ -12,7 +12,7 @@ env:
   DOTNET_VERSION: "8.0"
 
 jobs:
-  censorship-service-test:
+  censorship-service-unit-tests:
     name: test-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
