@@ -24,14 +24,13 @@ public class CensorshipController(IMediator mediator) : ControllerBase
     [HttpPost("sanitize")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateSanitizedMessage([FromBody] CreateSanitizedMessageRequest request)
+    public async Task<IActionResult> CreateSanitizedMessageAsync([FromBody] CreateSanitizedMessageRequest request)
     {
         var command = new CreateSanitizedMessageCommand(request.Message);
         var response = await mediator.Send(command);
 
-        if (response == null) BadRequest("Failed to sanitize message");
+        if (response == null) return BadRequest("Failed to sanitize message");
 
         return Ok(response);
-
     }
 }

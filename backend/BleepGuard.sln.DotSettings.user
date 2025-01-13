@@ -14,6 +14,8 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::F5337D32-5B7C-4CA5-BF72-03B8FD8C1343::net8.0::CensorshipService.Infrastructure.Tests.CacheRepositoryTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::7C2764EF-43EE-422F-B06C-B4B349FD0761::net8.0::CensorshipService.Application.Tests.Features.SanitizedMessagesTests.CreateSanitizedMessage_ShouldReturnSanitizedMessage_WhenInvoked&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::38F93263-3CF9-4783-AA68-02BC819A7B8E::net8.0::CensorshipService.Api.Tests.CensorshipControllerTests.CreateSanitizedMessageAsync_ShouldReturnBadRequest_WhenMessageFailedToBeSanitized&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::38F93263-3CF9-4783-AA68-02BC819A7B8E::net8.0::CensorshipService.Api.Tests.CensorshipControllerTests.CreateSanitizedMessageAsync_ShouldReturnOk_WhenValid&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
