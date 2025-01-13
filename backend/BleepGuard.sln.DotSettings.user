@@ -2,9 +2,17 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AExceptionDispatchInfo_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Frcojs_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fbd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182_003FExceptionDispatchInfo_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIAdminServiceApiClient_002Eg_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Frcojs_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F173a14a4a540a912a8528854f2bf6f2d41a82bba_003FIAdminServiceApiClient_002Eg_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AServiceProvider_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Frcojs_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F7d81b2d4f22bee75e5438c707251ae43cb0974c207db91ffc159118c84b4eb9_003FServiceProvider_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6e3c22ba_002Dfaa5_002D4fd9_002Daceb_002Ddb2c3fbee99f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CacheRepositoryTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6e3c22ba_002Dfaa5_002D4fd9_002Daceb_002Ddb2c3fbee99f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CacheRepositoryTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::7C2764EF-43EE-422F-B06C-B4B349FD0761::net8.0::CensorshipService.Application.Tests.CacheRepositoryTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::F5337D32-5B7C-4CA5-BF72-03B8FD8C1343::net8.0::CensorshipService.Infrastructure.Tests.CacheRepositoryTests.GetAllSensitiveWordsAsync_ShouldReturnEmptyHashSet_WhenNoSensitiveWordsExist&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::F5337D32-5B7C-4CA5-BF72-03B8FD8C1343::net8.0::CensorshipService.Infrastructure.Tests.CacheRepositoryTests.GetAllSensitiveWordsAsync_ShouldReturnSensitiveWords_WhenSensitiveWordsExist&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::F5337D32-5B7C-4CA5-BF72-03B8FD8C1343::net8.0::CensorshipService.Infrastructure.Tests.CacheRepositoryTests.AddSensitiveWordsAsync_ShouldCallMethod_WhenPassingSensitiveWords&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cebbc7ee_002Dbba7_002D4472_002D81dc_002D5082b2728ad6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AddSensitiveWordsAsync_ShouldCallMethod_WhenPassingSensitiveWords" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::F5337D32-5B7C-4CA5-BF72-03B8FD8C1343::net8.0::CensorshipService.Infrastructure.Tests.CacheRepositoryTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
