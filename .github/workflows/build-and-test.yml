@@ -26,6 +26,11 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Install dependencies
+        run: dotnet restore
+
       - name: Test
         run: |
-          dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --no-restore --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Application.Tests --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Infrastructure.Tests --verbosity normal
