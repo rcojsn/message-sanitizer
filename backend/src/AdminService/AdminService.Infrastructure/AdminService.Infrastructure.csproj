@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\BleepGuard.Application\BleepGuard.Application.csproj" />
       <ProjectReference Include="..\..\BleepGuard.Infrastructure\BleepGuard.Infrastructure.csproj" />
       <ProjectReference Include="..\AdminService.Application\AdminService.Application.csproj" />
     </ItemGroup>

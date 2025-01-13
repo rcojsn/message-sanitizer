@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using CensorshipService.Application.Common.Interfaces;
-using ErrorOr;
 using MediatR;
 
 namespace CensorshipService.Application.Features.SanitizedMessages.Commands.CreateSanitizedMessage;
@@ -10,7 +9,7 @@ public class CreateSanitizedMessageCommandHandler(ICacheRepository cacheReposito
 {
     public async Task<string?> Handle(CreateSanitizedMessageCommand request, CancellationToken cancellationToken)
     {
-        var cachedSensitiveWords = await cacheRepository.GetSensitiveWordsAsync();
+        var cachedSensitiveWords = await cacheRepository.GetAllSensitiveWordsAsync();
         
         var pattern = string.Join("|", cachedSensitiveWords.Select(Regex.Escape));
         

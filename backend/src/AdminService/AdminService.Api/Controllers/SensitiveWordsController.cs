@@ -27,6 +27,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     /// </summary>
     /// <param name="request">The create sensitive word request object that expects a word</param>
     /// <returns>The created sensitive word in the response, with a status code indicating success or failure.</returns>    [HttpPost]
+    [HttpPost]
     [ProducesResponseType(typeof(SensitiveWordResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateSensitiveWord([FromBody] CreateSensitiveWordRequest request)
