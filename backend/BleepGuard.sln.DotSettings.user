@@ -47,6 +47,7 @@
     &lt;TestId&gt;xUnit::6BD73AFE-C330-4F34-BF80-80271657D28A::net8.0::AdminService.Application.Tests.Features.SensitiveWords.GetSensitiveWordsTests.GetSensitiveWords_WhenCalled_ShouldReturnSensitiveWords&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::6BD73AFE-C330-4F34-BF80-80271657D28A::net8.0::AdminService.Application.Tests.Features.SensitiveWords.GetSensitiveWordTests.GetSensitiveWord_ShouldReturnNotFound_WhenSensitiveWordNotFound&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::6BD73AFE-C330-4F34-BF80-80271657D28A::net8.0::AdminService.Application.Tests.Features.SensitiveWords.GetSensitiveWordTests.GetSensitiveWord_ShouldReturnOk_WhenSensitiveWordFound&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6BD73AFE-C330-4F34-BF80-80271657D28A::net8.0::AdminService.Application.Tests.CacheRepositoryTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cebbc7ee_002Dbba7_002D4472_002D81dc_002D5082b2728ad6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddSensitiveWordsAsync_ShouldCallMethod_WhenPassingSensitiveWords" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
