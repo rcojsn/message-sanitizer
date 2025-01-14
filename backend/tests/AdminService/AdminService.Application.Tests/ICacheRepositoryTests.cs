@@ -16,7 +16,7 @@ public class CacheRepositoryTests
         
         _cacheRepository
             .AddOrUpdateSensitiveWordAsync(Arg.Any<SensitiveWord>())
-            .Returns(Task.CompletedTask);
+            .Returns(true);
         
         // Act
         await _cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
@@ -33,7 +33,7 @@ public class CacheRepositoryTests
         
         _cacheRepository
             .DeleteSensitiveWordByIdAsync(Arg.Any<Guid>())
-            .Returns(Task.CompletedTask);
+            .Returns(true);
         
         // Act
         await _cacheRepository.DeleteSensitiveWordByIdAsync(id);
