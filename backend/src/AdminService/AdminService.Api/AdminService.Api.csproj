@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\BleepGuard.Contracts\BleepGuard.Contracts.csproj" />
+      <ProjectReference Include="..\AdminService.Application\AdminService.Application.csproj" />
+      <ProjectReference Include="..\AdminService.Contracts\AdminService.Contracts.csproj" />
+      <ProjectReference Include="..\AdminService.Domain\AdminService.Domain.csproj" />
+      <ProjectReference Include="..\AdminService.Infrastructure\AdminService.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

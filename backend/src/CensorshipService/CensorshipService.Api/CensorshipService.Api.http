@@ -1,0 +1,6 @@
+@CensorshipService.Api_HostAddress = http://localhost:5114
+
+GET {{CensorshipService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
