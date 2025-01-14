@@ -8,7 +8,6 @@ public class CreateSanitizedMessageCommandValidator : AbstractValidator<CreateSa
     {
         RuleFor(x => x.Message)
             .NotNull()
-            .NotEmpty()
-            .WithMessage("Message cannot be empty.");
+            .NotEmpty();
     }
 }

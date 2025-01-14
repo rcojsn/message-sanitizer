@@ -109,6 +109,5 @@ public class CreateSensitiveWordTests
         result.IsValid.Should().BeFalse();
         result.Errors.First().ErrorMessage.Should().Be("'Sensitive Word' must not be empty.");
         result.Errors.Last().ErrorMessage.Should().Be("'Sensitive Word' must not be empty.");
-        
     }
 }
