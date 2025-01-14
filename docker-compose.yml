@@ -17,6 +17,21 @@ services:
     build:
       context: .
       dockerfile: ./backend/src/AdminService/AdminService.Infrastructure/Database/Dockerfile
+
+  adminservice.api:
+    container_name: adminservice.api
+    build:
+      context: .
+      dockerfile: ./backend/src/AdminService/AdminService.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=admin-database;Database=AdminService;User Id=sa;Password=StrongP@ssw0rd123!;TrustServerCertificate=True;
+      - Redis__ConnectionString=redis:6379
+    depends_on:
+      - admin-database
+      - redis
   
   redis:
     image: redis:latest
