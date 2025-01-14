@@ -32,6 +32,19 @@ services:
     depends_on:
       - admin-database
       - redis
+      
+  censorship.worker:
+    container_name: censorship.worker
+    build:
+      context: .
+      dockerfile: ./backend/src/CensorshipService/CensorshipService.Worker/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Redis__ConnectionString=redis:6379
+      - AdminService__Host=http://adminservice.api:8080
+    depends_on:
+      - redis
+      - adminservice.api
   
   redis:
     image: redis:latest

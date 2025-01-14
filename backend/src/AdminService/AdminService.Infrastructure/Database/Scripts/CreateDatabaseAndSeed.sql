@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS AdminService
+GO
+
 CREATE DATABASE AdminService
 GO
        
