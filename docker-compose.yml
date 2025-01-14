@@ -15,9 +15,9 @@ services:
     depends_on:
       - admin-database
     build:
-      context: ./backend/src/AdminService/AdminService.Infrastructure/Database/
-      dockerfile: Dockerfile
-
+      context: .
+      dockerfile: ./backend/src/AdminService/AdminService.Infrastructure/Database/Dockerfile
+  
   redis:
     image: redis:latest
     container_name: redis
@@ -25,19 +25,19 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
-
+  
   redis-commander:
     container_name: redis-management
     hostname: redis-commander
     image: rediscommander/redis-commander:latest
     restart: always
     environment:
-    - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:redis:6379
     ports:
-    - "8081:8081"
-    depends_on: 
+      - "8081:8081"
+    depends_on:
       - redis
-
+  
 volumes:
   admin_mssql_data:
   redis-data:
