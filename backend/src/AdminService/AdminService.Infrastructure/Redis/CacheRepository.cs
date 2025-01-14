@@ -7,17 +7,18 @@ namespace AdminService.Infrastructure.Redis;
 
 public class CacheRepository(IConnectionMultiplexer redis) : ICacheRepository
 {
-    public async Task AddOrUpdateSensitiveWordAsync(SensitiveWord sensitiveWord)
+    public async Task<bool> AddOrUpdateSensitiveWordAsync(SensitiveWord sensitiveWord)
     {
         var db = redis.GetDatabase();
         var (id, word) = sensitiveWord;
-        await db.HashSetAsync(Constants.RedisSensitiveWordsKey, id.ToString(), word);
+        return await db
+            .HashSetAsync(Constants.RedisSensitiveWordsKey, id.ToString(), word);
     }
 
-    public async Task DeleteSensitiveWordByIdAsync(Guid id)
+    public async Task<bool> DeleteSensitiveWordByIdAsync(Guid id)
     {
         var db = redis.GetDatabase();
-        await db.HashDeleteAsync(Constants.RedisSensitiveWordsKey, id.ToString());
+        return await db.HashDeleteAsync(Constants.RedisSensitiveWordsKey, id.ToString());
     }
 
 }

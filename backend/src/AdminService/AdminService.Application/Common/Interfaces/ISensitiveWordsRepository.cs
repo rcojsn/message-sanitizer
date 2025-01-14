@@ -7,7 +7,7 @@ public interface ISensitiveWordsRepository
     Task<bool> AddSensitiveWordAsync(SensitiveWord sensitiveWord);
     Task<SensitiveWord?> GetByIdAsync(Guid sensitiveWordId);
     Task<IList<SensitiveWord>> GetAllAsync();
-    Task UpdateSensitiveWordAsync(SensitiveWord sensitiveWord);
-    Task DeleteSensitiveWordAsync(SensitiveWord sensitiveWord);
+    Task<bool> UpdateSensitiveWordAsync(SensitiveWord sensitiveWord);
+    Task<bool> DeleteSensitiveWordAsync(SensitiveWord sensitiveWord);
     Task<bool> Exists(string word);
 }

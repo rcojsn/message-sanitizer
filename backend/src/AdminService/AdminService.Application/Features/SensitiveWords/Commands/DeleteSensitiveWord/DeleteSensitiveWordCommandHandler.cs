@@ -14,9 +14,13 @@ public class DeleteSensitiveWordCommandHandler(
         
         if (sensitiveWord == null) return Error.NotFound(description: "Sensitive word not found");
         
-        await sensitiveWordsRepository.DeleteSensitiveWordAsync(sensitiveWord);
+        var deleted = await sensitiveWordsRepository.DeleteSensitiveWordAsync(sensitiveWord);
         
-        await cacheRepository.DeleteSensitiveWordByIdAsync(request.Id);
+        if (!deleted) return Error.Failure(description: "Failed to delete sensitive word");
+        
+        var cacheDeleted = await cacheRepository.DeleteSensitiveWordByIdAsync(request.Id);
+        
+        if (!cacheDeleted) return Error.Failure(description: "Failed to delete sensitive word from cache");
         
         return Result.Deleted;
     }

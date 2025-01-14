@@ -39,29 +39,29 @@ public class SensitiveWordsRepository(IDbConnectionFactory connectionFactory) : 
         return results.ToList();
     }
 
-    public async Task UpdateSensitiveWordAsync(SensitiveWord sensitiveWord)
+    public async Task<bool> UpdateSensitiveWordAsync(SensitiveWord sensitiveWord)
     {
         using var dbConnection = await connectionFactory.CreateConnectionAsync();
-        await dbConnection.ExecuteAsync(
+        return await dbConnection.ExecuteAsync(
         """
                 UPDATE SensitiveWords
                 SET Word = @Word
                 WHERE Id = @Id
             """,
             sensitiveWord,
-            commandTimeout: 30);
+            commandTimeout: 30) > 0;
     }
     
-    public async Task DeleteSensitiveWordAsync(SensitiveWord sensitiveWord)
+    public async Task<bool> DeleteSensitiveWordAsync(SensitiveWord sensitiveWord)
     {
         using var dbConnection = await connectionFactory.CreateConnectionAsync();
-        await dbConnection.ExecuteAsync(
+        return await dbConnection.ExecuteAsync(
         """
                 DELETE FROM SensitiveWords
                 WHERE Id = @Id
             """, 
         sensitiveWord,
-        commandTimeout: 30);
+        commandTimeout: 30) > 0;
     }
 
     public async Task<bool> Exists(string word)

@@ -8,7 +8,6 @@ public class UpdateSensitiveWordCommandValidator : AbstractValidator<UpdateSensi
     {
         RuleFor(x => x.Word)
             .NotNull()
-            .NotEmpty()
-            .WithMessage("Word is required");
+            .NotEmpty();
     }
 }

@@ -29,6 +29,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     /// <returns>The created sensitive word in the response, with a status code indicating success or failure.</returns>    [HttpPost]
     [HttpPost]
     [ProducesResponseType(typeof(SensitiveWordResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateSensitiveWord([FromBody] CreateSensitiveWordRequest request)
     {
@@ -40,7 +41,14 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
                 nameof(GetSensitiveWordById),
                 new { id = sensitiveWord.Id },
                 sensitiveWord),
-            error => Problem(error.Description)
+            error =>
+            {
+                return error.Type switch
+                {
+                    ErrorType.Conflict => Conflict(error.Description),
+                    _ => Problem(error.Description)
+                };
+            }
         );
     }
 
@@ -98,6 +106,7 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> UpdateSensitiveWord([FromRoute] Guid id, [FromBody] UpdateSensitiveWordRequest request)
     {
         var command = new UpdateSensitiveWordCommand(id, request.Word);
@@ -108,15 +117,12 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
             _ => NoContent(),
             error =>
             {
-                switch (error.Type)
+                return error.Type switch
                 {
-                    case ErrorType.NotFound:
-                        return NotFound(error.Description);
-                    case ErrorType.Conflict:
-                        return Conflict(error.Description);
-                    default:
-                        return BadRequest(error.Description);
-                }
+                    ErrorType.NotFound => NotFound(error.Description),
+                    ErrorType.Conflict => Conflict(error.Description),
+                    _ => BadRequest(error.Description)
+                };
             }
         );
     }
@@ -140,7 +146,14 @@ public class SensitiveWordsController(IMediator mediator) : ControllerBase
 
         return deleteSensitiveWordResult.MatchFirst<IActionResult>(
             _ => NoContent(),
-            error => error.Type == ErrorType.NotFound ? NotFound(error.Description) : Problem(error.Description)
+            error =>
+            {
+                return error.Type switch
+                {
+                    ErrorType.NotFound => NotFound(error.Description),
+                    _ => BadRequest(error.Description)
+                };
+            }
         );
     }
 }

@@ -8,7 +8,6 @@ public class CreateSensitiveWordCommandValidator : AbstractValidator<CreateSensi
     {
         RuleFor(x => x.SensitiveWord)
             .NotNull()
-            .NotEmpty()
-            .WithMessage("Word is required");
+            .NotEmpty();
     }
 }

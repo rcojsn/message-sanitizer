@@ -21,9 +21,13 @@ public class UpdateSensitiveWordCommandHandler(
         
         sensitiveWord.MapFrom(request);
 
-        await sensitiveWordsRepository.UpdateSensitiveWordAsync(sensitiveWord);
+        var updated = await sensitiveWordsRepository.UpdateSensitiveWordAsync(sensitiveWord);
+        
+        if (!updated) return Error.Failure(description: "Failed to update sensitive word");
 
-        await cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
+        var cacheUpdated = await cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
+        
+        if (!cacheUpdated) return Error.Failure(description: "Failed to update cache");
         
         return Result.Updated;
     }

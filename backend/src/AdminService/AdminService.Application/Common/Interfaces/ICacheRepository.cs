@@ -4,6 +4,6 @@ namespace AdminService.Application.Common.Interfaces;
 
 public interface ICacheRepository
 {
-    Task AddOrUpdateSensitiveWordAsync(SensitiveWord sensitiveWord);
-    Task DeleteSensitiveWordByIdAsync(Guid id);
+    Task<bool> AddOrUpdateSensitiveWordAsync(SensitiveWord sensitiveWord);
+    Task<bool> DeleteSensitiveWordByIdAsync(Guid id);
 }
