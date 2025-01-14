@@ -9,7 +9,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ATask_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Frcojs_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F2e49d132ea68ff47071c64476ae29138fa965dc555ef7c3f4991586431de241_003FTask_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AThreadLocal_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Frcojs_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Ffdb2fc9cb0c1dbd0b5f81090dca6bc7d2bf3aa37ee5b1681a94d6af32ede447_003FThreadLocal_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\rcojs\AppData\Local\JetBrains\Rider2024.3\resharper-host\temp\Rider\vAny\CoverageData\_BleepGuard.1962508819\Snapshot\snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3cb4a246_002D5b92_002D4520_002D91b7_002De8f7654c5e31/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AddOrUpdateSensitiveWordAsync_ShouldAddNewSensitiveWord_WhenValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3cb4a246_002D5b92_002D4520_002D91b7_002De8f7654c5e31/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddOrUpdateSensitiveWordAsync_ShouldAddNewSensitiveWord_WhenValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6e3c22ba_002Dfaa5_002D4fd9_002Daceb_002Ddb2c3fbee99f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CacheRepositoryTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -53,7 +53,7 @@
     &lt;TestId&gt;xUnit::6BD73AFE-C330-4F34-BF80-80271657D28A::net8.0::AdminService.Application.Tests.CacheRepositoryTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cebbc7ee_002Dbba7_002D4472_002D81dc_002D5082b2728ad6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddSensitiveWordsAsync_ShouldCallMethod_WhenPassingSensitiveWords" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cebbc7ee_002Dbba7_002D4472_002D81dc_002D5082b2728ad6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AddSensitiveWordsAsync_ShouldCallMethod_WhenPassingSensitiveWords" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Dev\flash\backend" Presentation="&amp;lt;tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
