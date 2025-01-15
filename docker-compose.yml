@@ -46,6 +46,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=admin-database;Database=AdminService;User Id=sa;Password=StrongP@ssw0rd123!;TrustServerCertificate=True;
       - Redis__ConnectionString=redis:6379
     depends_on:

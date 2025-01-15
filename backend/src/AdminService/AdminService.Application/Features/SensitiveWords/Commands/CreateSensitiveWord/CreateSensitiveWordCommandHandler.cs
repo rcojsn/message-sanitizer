@@ -16,7 +16,6 @@ public class CreateSensitiveWordCommandHandler(
 {
     public async Task<ErrorOr<SensitiveWordResponse>> Handle(CreateSensitiveWordCommand request, CancellationToken cancellationToken)
     {
-        // Check if the sensitive word already exists
         var exists = await sensitiveWordsRepository.Exists(request.SensitiveWord);
         if (exists)
         {
@@ -24,10 +23,8 @@ public class CreateSensitiveWordCommandHandler(
             return Error.Conflict(description: "Sensitive word already exists");
         }
 
-        // Create a new sensitive word
         var sensitiveWord = new SensitiveWord(Guid.NewGuid(), request.SensitiveWord);
         
-        // Add the sensitive word to the repository
         var added = await sensitiveWordsRepository.AddSensitiveWordAsync(sensitiveWord);
         if (!added)
         {
@@ -35,7 +32,6 @@ public class CreateSensitiveWordCommandHandler(
             return Error.Failure(description: "Failed to add sensitive word");
         }
 
-        // Cache the sensitive word
         var cached = await cacheRepository.AddOrUpdateSensitiveWordAsync(sensitiveWord);
         if (!cached)
         {
@@ -43,7 +39,6 @@ public class CreateSensitiveWordCommandHandler(
             return Error.Failure(description: "Failed to cache sensitive word");
         }
 
-        // Log the successful creation and caching of the sensitive word
         logger.LogInformation("Successfully created and cached sensitive word: {SensitiveWord}", request.SensitiveWord);
 
         return sensitiveWord.MapToSensitiveWordResponse();
