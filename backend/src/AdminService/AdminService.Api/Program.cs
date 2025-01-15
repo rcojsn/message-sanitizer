@@ -1,9 +1,27 @@
 using System.Reflection;
+using System.Text.Json;
 using AdminService.Application;
 using AdminService.Infrastructure;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+using var loggerFactory = LoggerFactory.Create(x =>
+{
+    x.AddJsonConsole(options =>
+    {
+        options.IncludeScopes = false;
+        options.TimestampFormat = "HH:mm:ss ";
+        options.JsonWriterOptions = new JsonWriterOptions
+        {
+            Indented = true
+        };
+    });
+    x.SetMinimumLevel(LogLevel.Debug);
+});
+
+loggerFactory.CreateLogger<Program>();
+
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();

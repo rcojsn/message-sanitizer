@@ -3,6 +3,7 @@ using AdminService.Application.Features.SensitiveWords.Commands.CreateSensitiveW
 using AdminService.Domain.SensitiveWords;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace AdminService.Application.Tests.Features.SensitiveWords;
@@ -13,9 +14,10 @@ public class CreateSensitiveWordTests
     private readonly ISensitiveWordsRepository _sensitiveWordsRepository = Substitute.For<ISensitiveWordsRepository>();
     private readonly ICacheRepository _cacheRepository = Substitute.For<ICacheRepository>();
     private readonly IValidator<CreateSensitiveWordCommand> _validator = new CreateSensitiveWordCommandValidator();
+    private readonly ILogger<CreateSensitiveWordCommandHandler> _logger = Substitute.For<ILogger<CreateSensitiveWordCommandHandler>>();
     
     public CreateSensitiveWordTests() 
-        => _sut = new CreateSensitiveWordCommandHandler(_sensitiveWordsRepository, _cacheRepository);
+        => _sut = new CreateSensitiveWordCommandHandler(_sensitiveWordsRepository, _cacheRepository, _logger);
     
     [Fact]
     public async Task CreateSensitiveWord_ShouldReturnConflict_WhenSensitiveWordExists()
