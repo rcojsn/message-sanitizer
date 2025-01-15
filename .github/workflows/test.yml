@@ -36,11 +36,18 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Run CensorshipService Tests
+      - name: Run CensorshipService Tests with Coverage
         run: |
-          dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --verbosity normal
-          dotnet test ./backend/tests/CensorshipService/CensorshipService.Application.Tests --verbosity normal
-          dotnet test ./backend/tests/CensorshipService/CensorshipService.Infrastructure.Tests --verbosity normal
+          # Run tests and collect coverage data
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --collect:"XPlat Code Coverage" --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Application.Tests --collect:"XPlat Code Coverage" --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Infrastructure.Tests --collect:"XPlat Code Coverage" --verbosity normal
+
+      - name: Upload Coverage Report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/tests/CensorshipService/TestResults/coverage.cobertura.xml
+          name: coverage
 
   admin-service-unit-tests:
     name: test-${{ matrix.os }}-admin
@@ -66,8 +73,15 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Run AdminService Tests
+      - name: Run AdminService Tests with Coverage
         run: |
-          dotnet test ./backend/tests/AdminService/AdminService.Api.Tests --verbosity normal
-          dotnet test ./backend/tests/AdminService/AdminService.Application.Tests --verbosity normal
-          dotnet test ./backend/tests/AdminService/AdminService.Infrastructure.Tests --verbosity normal
+          # Run tests and collect coverage data
+          dotnet test ./backend/tests/AdminService/AdminService.Api.Tests --collect:"XPlat Code Coverage" --verbosity normal
+          dotnet test ./backend/tests/AdminService/AdminService.Application.Tests --collect:"XPlat Code Coverage" --verbosity normal
+          dotnet test ./backend/tests/AdminService/AdminService.Infrastructure.Tests --collect:"XPlat Code Coverage" --verbosity normal
+
+      - name: Upload Coverage Report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/tests/AdminService/TestResults/coverage.cobertura.xml
+          name: coverage
