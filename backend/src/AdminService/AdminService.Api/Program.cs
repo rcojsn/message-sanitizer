@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHealthChecks();
+
 using var loggerFactory = LoggerFactory.Create(x =>
 {
     x.AddJsonConsole(options =>
@@ -52,6 +54,8 @@ builder
     .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+app.MapHealthChecks("/health");
 
 if (app.Environment.IsDevelopment())
 {

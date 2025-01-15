@@ -63,13 +63,15 @@ services:
       - AdminService__Host=http://adminservice.api:8080
     depends_on:
       - admin-database
-      - adminservice.api
+      - admin-database-seed
       - redis
+      - adminservice.api
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://adminservice.api:8080/health" ]
       interval: 10s
       timeout: 5s
       retries: 3
+    restart: always
   
 volumes:
   admin_mssql_data:
