@@ -17,10 +17,9 @@ public class CensorshipController(IMediator mediator) : ControllerBase
     /// Sanitizes the provided message by replacing sensitive words with a *
     /// </summary>
     /// <param name="request">The message to sanitize, containing the content to be processed</param>
-    /// <returns>
-    /// Returns the sanitized message as a string with a 200 OK status.
-    /// Returns a 400 Bad Request status if the input request is invalid or malformed.
-    /// </returns>
+    /// <returns>The sanitized message</returns>
+    /// <response code="200">Returns the sanitized message</response>
+    /// <response code="400">If the input is invalid</response>
     [HttpPost("sanitize")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
