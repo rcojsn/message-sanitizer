@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CensorshipService.Application.Common.Interfaces;
 using CensorshipService.Application.Common.Interfaces.External;
 using CensorshipService.Infrastructure.Redis;
@@ -6,6 +7,22 @@ using Refit;
 using StackExchange.Redis;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+using var loggerFactory = LoggerFactory.Create(x =>
+{
+    x.AddJsonConsole(options =>
+    {
+        options.IncludeScopes = false;
+        options.TimestampFormat = "HH:mm:ss ";
+        options.JsonWriterOptions = new JsonWriterOptions
+        {
+            Indented = true
+        };
+    });
+    x.SetMinimumLevel(LogLevel.Debug);
+});
+
+loggerFactory.CreateLogger<Program>();
 
 #region Redis
 

@@ -1,5 +1,6 @@
 ﻿using CensorshipService.Infrastructure.Redis;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using StackExchange.Redis;
 
@@ -8,9 +9,10 @@ namespace CensorshipService.Infrastructure.Tests;
 public class CacheRepositoryTests
 {
     private readonly CacheRepository _sut;
+    private readonly ILogger<CacheRepository> _logger = Substitute.For<ILogger<CacheRepository>>();
     private readonly IConnectionMultiplexer _redis = Substitute.For<IConnectionMultiplexer>();
 
-    public CacheRepositoryTests() => _sut = new CacheRepository(_redis);
+    public CacheRepositoryTests() => _sut = new CacheRepository(_redis, _logger);
     
     [Fact]
     public async Task GetAllSensitiveWordsAsync_ShouldReturnEmptyHashSet_WhenNoSensitiveWordsExist() 

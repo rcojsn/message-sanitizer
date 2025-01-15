@@ -17,6 +17,26 @@ services:
     build:
       context: .
       dockerfile: ./backend/src/AdminService/AdminService.Infrastructure/Database/Dockerfile
+      
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  redis-commander:
+    container_name: redis-management
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
 
   adminservice.api:
     container_name: adminservice.api
@@ -26,7 +46,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=admin-database;Database=AdminService;User Id=sa;Password=StrongP@ssw0rd123!;TrustServerCertificate=True;
       - Redis__ConnectionString=redis:6379
     depends_on:
@@ -39,32 +58,17 @@ services:
       context: .
       dockerfile: ./backend/src/CensorshipService/CensorshipService.Worker/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - Redis__ConnectionString=redis:6379
       - AdminService__Host=http://adminservice.api:8080
     depends_on:
-      - redis
+      - admin-database
       - adminservice.api
-  
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-  
-  redis-commander:
-    container_name: redis-management
-    hostname: redis-commander
-    image: rediscommander/redis-commander:latest
-    restart: always
-    environment:
-      - REDIS_HOSTS=local:redis:6379
-    ports:
-      - "8081:8081"
-    depends_on:
       - redis
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://adminservice.api:8080/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   
 volumes:
   admin_mssql_data:
