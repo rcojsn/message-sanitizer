@@ -13,21 +13,65 @@ env:
 
 jobs:
   censorship-service-unit-tests:
-    name: test-${{matrix.os}}
+    name: test-${{ matrix.os }}-censorship
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
+      fail-fast: true
 
     steps:
       - uses: actions/checkout@v3
+      - name: Cache .NET Core SDK
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Test
+      - name: CensorshipService.Tests
         run: |
           dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --verbosity normal
           dotnet test ./backend/tests/CensorshipService/CensorshipService.Application.Tests --verbosity normal
           dotnet test ./backend/tests/CensorshipService/CensorshipService.Infrastructure.Tests --verbosity normal
+      - name: Publish test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: censorship-test-results
+          path: ./backend/tests/CensorshipService/TestResults/*.xml
+
+  admin-service-unit-tests:
+    name: test-${{ matrix.os }}-admin
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache .NET Core SDK
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: AdminService.Tests
+        run: |
+          dotnet test ./backend/tests/AdminService/AdminService.Api.Tests --verbosity normal
+          dotnet test ./backend/tests/AdminService/AdminService.Application.Tests --verbosity normal
+          dotnet test ./backend/tests/AdminService/AdminService.Infrastructure.Tests --verbosity normal
+      - name: Publish test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: admin-test-results
+          path: ./backend/tests/AdminService/TestResults/*.xml
