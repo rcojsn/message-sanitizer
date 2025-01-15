@@ -52,7 +52,7 @@ services:
     depends_on:
       - admin-database
       - redis
-      
+  
   censorship.worker:
     container_name: censorship.worker
     build:
@@ -73,6 +73,21 @@ services:
       retries: 3
     restart: always
   
+  censorship.api:
+    container_name: censorship.api
+    build:
+      context: .
+      dockerfile: ./backend/src/CensorshipService/CensorshipService.Api/Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Redis__ConnectionString=redis:6379
+    depends_on:
+      - redis
+      - censorship.worker
+    restart: always
+      
 volumes:
   admin_mssql_data:
   redis-data:

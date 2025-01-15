@@ -243,5 +243,5 @@ VALUES
     ('STRINGTABLE'),
     ('LONGTABLE'),
     ('DOUBLETABLE'),
-    ('SELECT * FROM');
+    ('SELECT * FROM'); 
 GO
