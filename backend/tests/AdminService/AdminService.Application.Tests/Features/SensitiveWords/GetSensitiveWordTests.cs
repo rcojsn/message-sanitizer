@@ -3,6 +3,7 @@ using AdminService.Application.Features.SensitiveWords.Queries.GetSensitiveWord;
 using AdminService.Application.Mappings;
 using AdminService.Domain.SensitiveWords;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace AdminService.Application.Tests.Features.SensitiveWords;
@@ -11,9 +12,10 @@ public class GetSensitiveWordTests
 {
     private readonly GetSensitiveWordQueryHandler _sut;
     private readonly ISensitiveWordsRepository _sensitiveWordsRepository = Substitute.For<ISensitiveWordsRepository>();
+    private readonly ILogger<GetSensitiveWordQueryHandler> _logger = Substitute.For<ILogger<GetSensitiveWordQueryHandler>>();
     
     public GetSensitiveWordTests() 
-        => _sut = new GetSensitiveWordQueryHandler(_sensitiveWordsRepository);
+        => _sut = new GetSensitiveWordQueryHandler(_sensitiveWordsRepository, _logger);
     
     [Fact]
     public async Task GetSensitiveWord_ShouldReturnNotFound_WhenSensitiveWordNotFound()
