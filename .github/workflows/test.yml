@@ -12,6 +12,36 @@ env:
   DOTNET_VERSION: "8.0"
 
 jobs:
+  censorship-service-unit-tests:
+    name: test-${{ matrix.os }}-censorship
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache .NET Core SDK
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Run CensorshipService Tests
+        run: |
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Api.Tests --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Application.Tests --verbosity normal
+          dotnet test ./backend/tests/CensorshipService/CensorshipService.Infrastructure.Tests --verbosity normal
+
   admin-service-unit-tests:
     name: test-${{ matrix.os }}-admin
     runs-on: ${{ matrix.os }}
@@ -36,18 +66,8 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Run AdminService Tests with Coverage
+      - name: Run AdminService Tests
         run: |
-          dotnet test ./backend/tests/AdminService/AdminService.Api.Tests --collect:"Code Coverage" --logger:"cobertura;LogFileName=coverage.cobertura.xml"
-          dotnet test ./backend/tests/AdminService/AdminService.Application.Tests --collect:"Code Coverage" --logger:"cobertura;LogFileName=coverage.cobertura.xml"
-          dotnet test ./backend/tests/AdminService/AdminService.Infrastructure.Tests --collect:"Code Coverage" --logger:"cobertura;LogFileName=coverage.cobertura.xml"
-
-      - name: List files in TestResults
-        run: |
-          find ./backend/tests/AdminService/TestResults/ -type f
-
-      - name: Publish Coverage Report to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ${{ github.workspace }}/backend/tests/AdminService/**/TestResults/**/coverage.cobertura.xml
-          name: coverage
+          dotnet test ./backend/tests/AdminService/AdminService.Api.Tests --verbosity normal
+          dotnet test ./backend/tests/AdminService/AdminService.Application.Tests --verbosity normal
+          dotnet test ./backend/tests/AdminService/AdminService.Infrastructure.Tests --verbosity normal
