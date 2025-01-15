@@ -46,7 +46,7 @@ jobs:
       - name: Upload Coverage Report to Codecov
         uses: codecov/codecov-action@v3
         with:
-          file: ./backend/tests/CensorshipService/TestResults/coverage.cobertura.xml
+          file: ./backend/tests/CensorshipService/TestResults/**/coverage.cobertura.xml
           name: coverage
 
   admin-service-unit-tests:
@@ -83,5 +83,5 @@ jobs:
       - name: Upload Coverage Report to Codecov
         uses: codecov/codecov-action@v3
         with:
-          file: ./backend/tests/AdminService/TestResults/coverage.cobertura.xml
+          file: ./backend/tests/AdminService/TestResults/**/coverage.cobertura.xml
           name: coverage
