@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.cs"
+      - "**.csproj"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**.cs"
+      - "**.csproj"
+
+env:
+  DOTNET_VERSION: "8.0"
+
+jobs:
+  build:
+    name: Build BleepGuard
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache .NET Core SDK
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build Applications
+        run: |
+          dotnet build ./backend/BleepGuard.sln --configuration Release
