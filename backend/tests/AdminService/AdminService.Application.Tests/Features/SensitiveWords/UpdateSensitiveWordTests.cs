@@ -1,10 +1,10 @@
 ﻿using AdminService.Application.Common.Interfaces;
 using AdminService.Application.Features.SensitiveWords.Commands.UpdateSensitiveWord;
-using AdminService.Contracts.SensitiveWords;
 using AdminService.Domain.SensitiveWords;
 using ErrorOr;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace AdminService.Application.Tests.Features.SensitiveWords;
@@ -15,9 +15,10 @@ public class UpdateSensitiveWordTests
     private readonly ISensitiveWordsRepository _sensitiveWordsRepository = Substitute.For<ISensitiveWordsRepository>();
     private readonly ICacheRepository _cacheRepository = Substitute.For<ICacheRepository>();
     private readonly IValidator<UpdateSensitiveWordCommand> _validator = new UpdateSensitiveWordCommandValidator();
+    private readonly ILogger<UpdateSensitiveWordCommandHandler> _logger = Substitute.For<ILogger<UpdateSensitiveWordCommandHandler>>();
     
     public UpdateSensitiveWordTests()
-    => _sut = new UpdateSensitiveWordCommandHandler(_sensitiveWordsRepository, _cacheRepository);
+    => _sut = new UpdateSensitiveWordCommandHandler(_sensitiveWordsRepository, _logger, _cacheRepository);
     
     [Fact]
     public async Task UpdateSensitiveWord_WhenSensitiveWordDoesNotExist_ShouldReturnNotFound()

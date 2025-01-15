@@ -3,6 +3,7 @@ using AdminService.Application.Features.SensitiveWords.Commands.DeleteSensitiveW
 using AdminService.Domain.SensitiveWords;
 using ErrorOr;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace AdminService.Application.Tests.Features.SensitiveWords;
@@ -12,10 +13,12 @@ public class DeleteSensitiveWordTests
     private readonly DeleteSensitiveWordCommandHandler _sut;
     private readonly ISensitiveWordsRepository _sensitiveWordsRepository = Substitute.For<ISensitiveWordsRepository>();
     private readonly ICacheRepository _cacheRepository = Substitute.For<ICacheRepository>();
+    private readonly ILogger<DeleteSensitiveWordCommandHandler> _logger = Substitute.For<ILogger<DeleteSensitiveWordCommandHandler>>();
     
     public DeleteSensitiveWordTests()
     => _sut = new DeleteSensitiveWordCommandHandler(
-        _sensitiveWordsRepository, 
+        _sensitiveWordsRepository,
+        _logger,
         _cacheRepository);
     
     [Fact]
